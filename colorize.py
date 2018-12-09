@@ -10,25 +10,7 @@ import logging
 from scipy.misc import imread
 np.set_printoptions(precision=8, suppress=True)
 
-# set the photo file path
-path_pic = 'peppers_gray.png'
-path_pic_marked = 'peppers_marked.png'
-# window width
-wd_width = 1
 
-pic_o_rgb = imread(path_pic)
-pic_o = pic_o_rgb.astype(float)/255
-pic_m_rgb = imread(path_pic_marked)
-pic_m = pic_m_rgb.astype(float)/255
-
-
-
-fig = plt.figure()
-fig.add_subplot(1,2,1).set_title('Black & White')
-imgplot = plt.imshow(pic_o_rgb)
-fig.add_subplot(1,2,2).set_title('Color Hints')
-imgplot = plt.imshow(pic_m_rgb)
-plt.show();
 
 class WindowNeighbor:
     def __init__(self, width, center, pic):
@@ -88,13 +70,17 @@ def yuv_channels_to_rgb(cY,cU,cV):
     pic_ansRGB[:,:,2] = ansRGB[:,2].reshape(pic_rows, pic_cols, order='F')
     return pic_ansRGB
 
-def init_logger():
-    FORMAT = '%(asctime)-15s %(message)s'
-    logging.basicConfig(format=FORMAT, level=logging.DEBUG)
-    logger = logging.getLogger()
-    return logger
+# set the photo file path
+path_pic = 'peppers_gray.png'
+path_pic_marked = 'peppers_marked.png'
+# window width
+wd_width = 1
 
-log = init_logger()
+pic_o_rgb = imread(path_pic)
+pic_o = pic_o_rgb.astype(float)/255
+pic_m_rgb = imread(path_pic_marked)
+pic_m = pic_m_rgb.astype(float)/255
+
 (pic_rows, pic_cols, _) = pic_o.shape
 pic_size = pic_rows * pic_cols
 
@@ -124,7 +110,6 @@ sp_data = np.array(sp_idx_rc_data, dtype=np.float64)[:,2]
 
 matA = scipy.sparse.csr_matrix((sp_data, (sp_idx_rc[:,0], sp_idx_rc[:,1])), shape=(pic_size, pic_size))
 
-
 b_u = np.zeros(pic_size)
 b_v = np.zeros(pic_size)
 idx_colored = np.nonzero(map_colored.reshape(pic_size, order='F'))
@@ -134,14 +119,10 @@ b_u[idx_colored] = pic_u_flat[idx_colored]
 pic_v_flat = pic_yuv[:,:,2].reshape(pic_size, order='F')
 b_v[idx_colored] = pic_v_flat[idx_colored]
 
-
-log.info('Optimizing Ax=b')
 ansY = pic_yuv[:,:,0].reshape(pic_size, order='F')
 ansU = scipy.sparse.linalg.spsolve(matA, b_u)
 ansV = scipy.sparse.linalg.spsolve(matA, b_v)
 pic_ans = yuv_channels_to_rgb(ansY,ansU,ansV)
-
-log.info('Optimized Ax=b')
 
 fig = plt.figure()
 fig.add_subplot(1,2,1).set_title('Black & White')
