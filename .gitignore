@@ -1,2 +1,4 @@
 .DS_Store
-
+colorenv/
+.vscode/
+__pycache__/
