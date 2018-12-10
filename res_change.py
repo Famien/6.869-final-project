@@ -4,7 +4,6 @@ PATH = 'images/'
 
 def res_change(img, scale):
     try:
-        width, height = img.shape[0:2]
         image = cv2.resize(img, (0,0), fx=scale, fy=scale)
         return image
     except Exception as e:

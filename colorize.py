@@ -10,10 +10,6 @@ import logging
 from scipy.misc import imread
 np.set_printoptions(precision=8, suppress=True)
 
-
-
-
-
 def colorize(pic_o, pic_m):
     class WindowNeighbor:
         def __init__(self, width, center, pic):

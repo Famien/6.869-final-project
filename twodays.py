@@ -3,6 +3,7 @@ import time
 from res_change import res_change
 from color_to_bw import color_to_bw
 from color_image import color_image
+from colorize import colorize
 
 PATH = 'images/'
 HIGH_RES_IMAGE = 'the_dunk.jpeg'
@@ -30,7 +31,9 @@ if __name__ == "__main__":
 
     t1_start = time.perf_counter()
     t2_start = time.process_time()
+
     # Pass both the LoResBW and LoResMark into the colorizer (LoResBW + LoResMark -> LoResColor)
+    Low_res_color_image = colorize(low_res_bw_image, low_res_mark_image)
 
     # Pass the HiResBW, LoResBW, and LoResColor to get smaller marked window (HiResBW + LoResBW + LoResColor -> MarkedWindow)
 

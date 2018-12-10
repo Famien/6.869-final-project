@@ -1,11 +1,13 @@
 import cv2
+import numpy as np
 
 PATH = 'images/'
 
 def color_to_bw(img):
     try:
-        image = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-        return image
+        bw = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+        bw_three_ch = bw[:,:,None]*np.ones(3, dtype=np.int8)[None,None,:]
+        return bw_three_ch
     except Exception as e:
         print(e)
         return str(e)
