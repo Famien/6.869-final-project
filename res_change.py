@@ -1,5 +1,7 @@
 import cv2
 
+PATH = 'images/'
+
 def res_change(img, scale):
     try:
         width, height = img.shape[0:2]
@@ -10,7 +12,7 @@ def res_change(img, scale):
         return str(e)
 
 if __name__ == "__main__":
-    img = cv2.imread('the_dunk.jpeg')
+    img = cv2.imread(PATH+'the_dunk.jpeg')
     resize = res_change(img, .5)
     cv2.imshow('Resized image', resize)
 

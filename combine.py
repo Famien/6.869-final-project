@@ -2,6 +2,7 @@ from colorize import colorize
 from imageio import imread, imwrite
 import cv2
 
+PATH = 'images/'
 def get_distance(p1, p2):
     return abs(p1[0]-p2[0])+abs(p1[1]-p2[1])+abs(p1[2]-p2[2])
 
@@ -58,9 +59,9 @@ def get_high_res_colored(lr_bw, lr_colored, hr_bw, window_size):
     return colorized_image
 
 # set the photo file path
-path_lr = 'lr_peppers.png'
-path_lr_colorized = 'colorized_test.png'
-path_bw = 'peppers_gray.png'
+path_lr = PATH+'lr_peppers.png'
+path_lr_colorized = PATH+'colorized_test.png'
+path_bw = PATH+'peppers_gray.png'
 
 pic_lr_rgb = imread(path_lr)
 pic_lr = pic_lr_rgb.astype(float)/255
@@ -75,4 +76,4 @@ pic_bw = pic_bw[:,:,:3]
 
 high_res_colored = get_high_res_colored(pic_lr, pic_lr_colored, pic_bw, 2)
 
-imwrite('high_res_colored.png', high_res_colored)
+imwrite(PATH+'high_res_colored.png', high_res_colored)

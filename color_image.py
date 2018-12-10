@@ -1,6 +1,7 @@
 import cv2
 import numpy as np
 
+PATH = 'images/'
 drawing = False # true if mouse is pressed
 
 # mouse callback function
@@ -24,7 +25,7 @@ def color_image(img, name):
     YELLOW = (0,255,255)
     COLOR = RED
     RADIUS = 5
-    image = cv2.imread(img)
+    image = cv2.imread(PATH+img)
     cv2.namedWindow('image')
     cv2.setMouseCallback('image',draw_circle)
 
@@ -32,7 +33,7 @@ def color_image(img, name):
         cv2.imshow('image',image)
         k = cv2.waitKey(1) & 0xFF
         if k == ord('s'):
-            cv2.imwrite('LoResMark_'+name,image)
+            cv2.imwrite(PATH+'LoResMark_'+name,image)
             break
         elif k == ord('g'):
             COLOR = GREEN
@@ -49,11 +50,11 @@ def color_image(img, name):
         elif k == ord('m'):
             RADIUS = min(RADIUS+1,100)
         elif k == 27:
-            cv2.imwrite('LoResMark_'+name,image)
+            cv2.imwrite(PATH+'LoResMark_'+name,image)
             break
 
     cv2.destroyAllWindows()
     return image
 
 if __name__ == "__main__":
-    color_image(cv2.imread('peppers_gray.png','peppers_gray.png'))
+    color_image('maplestory.jpg','maplestory.jpg')
