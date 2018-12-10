@@ -4,6 +4,8 @@ from res_change import res_change
 from color_to_bw import color_to_bw
 from color_image import color_image
 from colorize import colorize
+import scipy
+from scipy.misc import imread
 
 PATH = 'images/'
 HIGH_RES_IMAGE = 'colorized_test.png'
@@ -34,9 +36,14 @@ if __name__ == "__main__":
     t2_start = time.process_time()
 
     # Pass both the LoResBW and LoResMark into the colorizer (LoResBW + LoResMark -> LoResColor)
-    low_res_color_image = colorize(low_res_bw_image, low_res_mark_image)
+    pic_o_rgb = imread(PATH+'LoResBW_'+HIGH_RES_IMAGE)
+    # low_res_color_image = colorize(low_res_bw_image, low_res_mark_image)
+    pic_o = pic_o_rgb.astype(float)/255
+    pic_m_rgb = imread(PATH+'LoResMark_colorized_test.png')
+    pic_m = pic_m_rgb.astype(float)/255
+    low_res_color_image = colorize(pic_o,pic_m)
     cv2.imshow(PATH+'LoResColor', low_res_color_image)
-    cv2.imwrite(PATH+'LoResColor_'+HIGH_RES_IMAGE, low_res_color_image)
+    # cv2.imwrite(PATH+'LoResColor_'+HIGH_RES_IMAGE, low_res_color_image)
     # Pass the HiResBW, LoResBW, and LoResColor to get smaller marked window (HiResBW + LoResBW + LoResColor -> MarkedWindow)
 
     # Pass the marked window back into colorizer and recombine to high resolution colorized image (MarkedWindow -> HiResColorRecostructed)

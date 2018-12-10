@@ -107,7 +107,12 @@ channel_Y,_,_ = colorsys.rgb_to_yiq(pic_o[:,:,0],pic_o[:,:,1],pic_o[:,:,2])
 _,channel_U,channel_V = colorsys.rgb_to_yiq(pic_m[:,:,0],pic_m[:,:,1],pic_m[:,:,2])
 
 map_colored = (abs(channel_U) + abs(channel_V)) > 0.0001
-
+print("channel_Y: %a" % channel_Y)
+print("channel_Y.shape: ", channel_Y.shape)
+print("channel_U: %a" % channel_U)
+print("channel_U.shape: ", channel_U.shape)
+print("channel_V: %a" % channel_V)
+print("channel_V.shape: ", channel_V.shape)
 pic_yuv = np.dstack((channel_Y, channel_U, channel_V))
 weightData = []
 num_pixel_bw = 0
