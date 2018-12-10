@@ -16,8 +16,10 @@ np.set_printoptions(precision=8, suppress=True)
 #path_pic = 'LoResBW_peppers.png'
 #path_pic_marked = 'LoResBW_peppers_marked.png'
 PATH = 'images/'
-path_pic = 'lr_peppers.png'
-path_pic_marked = 'lr_peppers_marked.png'
+path_pic = PATH+'LoResBW_colorized_test.png'
+path_pic_marked = PATH+'LoResMark_colorized_test.png'
+# path_pic = 'lr_peppers.png'
+# path_pic_marked = 'lr_peppers_marked.png'
 # window width
 wd_width = 1
 
@@ -154,12 +156,12 @@ t1_stop = time.perf_counter()
 t2_stop = time.process_time()
 print("Elapsed time: %.1f [sec]" % ((t1_stop-t1_start)))
 print("CPU process time: %.1f [sec]" % ((t2_stop-t2_start)))
-# fig = plt.figure()
-# fig.add_subplot(1,2,1).set_title('Black & White')
-# imgplot = plt.imshow(pic_o_rgb)
-# fig.add_subplot(1,2,2).set_title('Colorized')
-# imgplot = plt.imshow(pic_ans)
+fig = plt.figure()
+fig.add_subplot(1,2,1).set_title('Black & White')
+imgplot = plt.imshow(pic_o_rgb)
+fig.add_subplot(1,2,2).set_title('Colorized')
+imgplot = plt.imshow(pic_ans)
 
 import numpy
-imageio.imwrite(PATH + 'colorized_test.png', numpy.array(pic_ans))
-# plt.show();
+# imageio.imwrite(PATH + 'colorized_test.png', numpy.array(pic_ans))
+plt.show();

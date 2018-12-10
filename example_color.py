@@ -15,16 +15,16 @@ np.set_printoptions(precision=8, suppress=True)
 #path_pic = 'LoResBW_peppers.png'
 #path_pic_marked = 'LoResBW_peppers_marked.png'
 PATH = 'images/'
-path_pic = 'lr_peppers.png'
-path_pic_marked = 'lr_peppers_marked.png'
+# path_pic = 'maplestory.png'
+# path_pic_marked = 'lr_peppers_marked.png'
 # window width
 wd_width = 1
 
 # pic_o_rgb = imread(path_pic)
-pic_o_rgb = imread(PATH+'LoResBW_'+'colorized_test.png')
+pic_o_rgb = imread(PATH+'LoResBW_'+'maplestory.jpg')
 pic_o = pic_o_rgb.astype(float)/255
 # pic_m_rgb = imread(path_pic_marked)
-pic_m_rgb = imread(PATH+'LoResMark_colorized_test.png')
+pic_m_rgb = imread(PATH+'LoResMark_'+'maplestory.jpg')
 pic_m = pic_m_rgb.astype(float)/255
 
 
