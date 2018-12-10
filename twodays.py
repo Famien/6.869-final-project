@@ -6,7 +6,7 @@ from color_image import color_image
 from colorize import colorize
 
 PATH = 'images/'
-HIGH_RES_IMAGE = 'the_dunk.jpeg'
+HIGH_RES_IMAGE = 'colorized_test.png'
 
 if __name__ == "__main__":
 
@@ -26,15 +26,17 @@ if __name__ == "__main__":
     cv2.imwrite(PATH+'LoResBW_'+HIGH_RES_IMAGE, low_res_bw_image)
 
     # User marks the smaller black and white image (LoResBW -> LoResMark)
-    low_res_mark_image = color_image('LoResBW_'+HIGH_RES_IMAGE, HIGH_RES_IMAGE)
+    low_res_mark_image = cv2.imread(PATH+'LoResMark_colorized_test.png')
+    # low_res_mark_image = color_image('LoResBW_'+HIGH_RES_IMAGE, HIGH_RES_IMAGE)
     cv2.imshow('LoResMark', low_res_mark_image)
 
     t1_start = time.perf_counter()
     t2_start = time.process_time()
 
     # Pass both the LoResBW and LoResMark into the colorizer (LoResBW + LoResMark -> LoResColor)
-    Low_res_color_image = colorize(low_res_bw_image, low_res_mark_image)
-
+    low_res_color_image = colorize(low_res_bw_image, low_res_mark_image)
+    cv2.imshow(PATH+'LoResColor', low_res_color_image)
+    cv2.imwrite(PATH+'LoResColor_'+HIGH_RES_IMAGE, low_res_color_image)
     # Pass the HiResBW, LoResBW, and LoResColor to get smaller marked window (HiResBW + LoResBW + LoResColor -> MarkedWindow)
 
     # Pass the marked window back into colorizer and recombine to high resolution colorized image (MarkedWindow -> HiResColorRecostructed)
