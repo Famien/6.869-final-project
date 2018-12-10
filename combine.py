@@ -1,7 +1,6 @@
 from colorize import colorize
 from imageio import imread, imwrite
 import cv2
-import matplotlib.pyplot as plt
 
 PATH = 'images/'
 def get_distance(p1, p2):
@@ -37,126 +36,44 @@ def get_high_res_colored(lr_bw, lr_colored, hr_bw, window_size):
     """
     colorized_image = hr_bw[:]
 
-    for i in range(int(len(hr_bw)/window_size)):
+    for i in range(len(hr_bw)/window_size):
         i_start = i*window_size
         i_end = i*window_size + 2
-        for j in range(int(len(hr_bw)/window_size)):
+
+        for j in range(len(hr_bw[0])/window_size):
             j_start = j*window_size
             j_end = j*window_size + 2
-
             window = hr_bw[i_start:i_end,j_start:j_end]
-
             lr_pixel = lr_bw[i,j] # find corresponding pixel in low res version
-            closest = closest_pixel(window, lr_pixel)
-            # color pixel closest in intensity to low res to that pixel's color in colorized low res
-            window_marked = window[:]
-            # for k in range(window_size):
-#                 for l in range(window_size):
-#                     window_marked[k, l] = lr_colored[i,j]
-#colorized_window = window_marked
-
-            window_marked[closest[0],closest[1]] = lr_colored[i,j]
-            colorized_window = colorize(window, window_marked)
-
-            color_window(colorized_image, colorized_window,i*window_size ,j*window_size)
-
-    return colorized_image
-
-def get_high_res_colored2(lr_bw, lr_colored, hr_bw, window_size):
-    """ Returns a colorized version of a a b/w image using a low-res colorized version
-    
-    Args: lr_colored: low-res colored image
-          hr_bw:      high-res bw image
-
-    Returns:
-        Image: colorized version of the b/w image
-    
-    """
-    colorized_image = hr_bw[:]
-
-    for i in range(int(len(hr_bw)/window_size)):
-        i_start = i*window_size
-        i_end = i*window_size + 2
-        for j in range(int(len(hr_bw)/window_size)):
-            j_start = j*window_size
-            j_end = j*window_size + 2
-
-            window = hr_bw[i_start:i_end,j_start:j_end]
-
-            lr_pixel = lr_bw[i,j] # find corresponding pixel in low res version
-            closest = closest_pixel(window, lr_pixel)
-            # color pixel closest in intensity to low res to that pixel's color in colorized low res
-            window_marked = window[:]
-            window_marked[closest[0],closest[1]] = lr_colored[i,j]
-
-            color_window(colorized_image, window_marked, i*window_size ,j*window_size)
-
-    return colorized_image
-
-def get_high_res_colored3(lr_bw, lr_colored, hr_bw, window_size):
-    """ Returns a colorized version of a a b/w image using a low-res colorized version
-    
-    Args: lr_colored: low-res colored image
-          hr_bw:      high-res bw image
-
-    Returns:
-        Image: colorized version of the b/w image
-    
-    """
-    colorized_image = hr_bw[:]
-
-    for i in range(int(len(hr_bw)/window_size)):
-        i_start = i*window_size
-        i_end = i*window_size + 2
-        for j in range(int(len(hr_bw)/window_size)):
-            j_start = j*window_size
-            j_end = j*window_size + 2
-
-            window = hr_bw[i_start:i_end,j_start:j_end]
-
-            lr_pixel = lr_bw[i,j] # find corresponding pixel in low res version
-            closest = closest_pixel(window, lr_pixel)
+            #closest = closest_pixel(window, lr_pixel)
             # color pixel closest in intensity to low res to that pixel's color in colorized low res
             window_marked = window[:]
             for k in range(window_size):
                 for l in range(window_size):
                     window_marked[k, l] = lr_colored[i,j]
-            colorized_window = window_marked
-
-#            window_marked[closest[0],closest[1]] = lr_colored[int(i/window_size),int(j/window_size)]
+#            window_marked[closest[0],closest[1]] = lr_colored[i/window_size,j/window_size]
 #            colorized_window = colorize(window, window_marked)
-
+            colorized_window = window_marked
             color_window(colorized_image, colorized_window,i*window_size ,j*window_size)
 
     return colorized_image
 
-def get_high_res_colored4(lr_bw, lr_colored, hr_bw, window_size):
-    """ Returns a colorized version of a a b/w image using a low-res colorized version
-    
-    Args: lr_colored: low-res colored image
-          hr_bw:      high-res bw image
+# set the photo file path
+path_lr = PATH+'lr_peppers.png'
+path_lr_colorized = PATH+'colorized_test.png'
+path_bw = PATH+'peppers_gray.png'
 
-    Returns:
-        Image: colorized version of the b/w image
-    
-    """
-    colorized_image = hr_bw[:]
+pic_lr_rgb = imread(path_lr)
+pic_lr = pic_lr_rgb.astype(float)/255
 
-    for i in range(int(len(hr_bw)/window_size)):
-        i_start = i*window_size
-        i_end = i*window_size + 2
-        for j in range(int(len(hr_bw)/window_size)):
-            j_start = j*window_size
-            j_end = j*window_size + 2
+pic_lr_marked_rgb = imread(path_lr_colorized)
+pic_lr_colored = pic_lr_marked_rgb.astype(float)/255
 
-            window = hr_bw[i_start:i_end,j_start:j_end]
+pic_bw_rgb = imread(path_bw)
+pic_bw = pic_bw_rgb.astype(float)/255
 
-            lr_pixel = lr_bw[i,j] # find corresponding pixel in low res version
-            closest = closest_pixel(window, lr_pixel)
-            # color pixel closest in intensity to low res to that pixel's color in colorized low res
-            window_marked = window[:]
-            window_marked[closest[0],closest[1]] = lr_colored[i,j]
+pic_bw = pic_bw[:,:,:3]
 
-            color_window(colorized_image, window_marked, i*window_size ,j*window_size)
+high_res_colored = get_high_res_colored(pic_lr, pic_lr_colored, pic_bw, 2)
 
-    return colorized_image
+imwrite(PATH+'high_res_colored.png', high_res_colored)
