@@ -2,6 +2,7 @@ import cv2
 from res_change import res_change
 from color_to_bw import color_to_bw
 from color_image import color_image
+from combine import get_high_res_colored
 
 PATH = 'images/'
 HIGH_RES_IMAGE = PATH + 'the_dunk.jpeg'
@@ -26,11 +27,17 @@ if __name__ == "__main__":
     low_res_mark_image = color_image(PATH+'LoResBW_'+HIGH_RES_IMAGE, HIGH_RES_IMAGE)
     # cv2.imshow('LoResMark', low_res_mark_image)
 
+    
     # Pass both the LoResBW and LoResMark into the colorizer (LoResBW + LoResMark -> LoResColor)
 
-    # Pass the HiResBW, LoResBW, and LoResColor to get smaller marked window (HiResBW + LoResBW + LoResColor -> MarkedWindow)
+    # Pass the HiResBW, LoResBW, and LoResColor to get smaller marked window and recombine to high resolution colorized image (HiResBW + LoResBW + LoResColor -> HiResColorRecostructed)
 
-    # Pass the marked window back into colorizer and recombine to high resolution colorized image (MarkedWindow -> HiResColorRecostructed)
+#    pic_bw = pic_bw[:,:,:3]
+    pic_bw = high_res_bw_image
+    high_res_colored = get_high_res_colored(pic_lr, pic_lr_colored, pic_bw, 2)
 
+    cv2.imshow('HiResColored', high_res_colored)
+    cv2.imwrite('HiResColored_'+HIGH_RES_IMAGE, high_res_colored)
+    
     cv2.waitKey(0)
     cv2.destroyAllWindows()
