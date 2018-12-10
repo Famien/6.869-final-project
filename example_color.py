@@ -14,8 +14,9 @@ np.set_printoptions(precision=8, suppress=True)
 # set the photo file path
 #path_pic = 'LoResBW_peppers.png'
 #path_pic_marked = 'LoResBW_peppers_marked.png'
-path_pic = 'lr_peppers.png'
-path_pic_marked = 'lr_peppers_marked.png'
+PATH = 'images/'
+path_pic = PATH + 'lr_peppers.png'
+path_pic_marked = PATH + 'lr_peppers_marked.png'
 # window width
 wd_width = 1
 
@@ -154,5 +155,5 @@ fig.add_subplot(1,2,2).set_title('Colorized')
 imgplot = plt.imshow(pic_ans)
 
 import numpy
-imageio.imwrite('colorized_test.png', numpy.array(pic_ans))
+imageio.imwrite(PATH + 'colorized_test.png', numpy.array(pic_ans))
 plt.show();
