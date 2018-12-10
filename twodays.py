@@ -77,14 +77,16 @@ if __name__ == "__main__":
     # get colorized version of high res
 
     high_res_color_reconstructed = get_high_res_colored4(pic_o, low_res_color_image, high_res_bw_image,2)
+    imwrite(PATH+'HiResColorReconstructed_'+HIGH_RES_IMAGE, high_res_color_reconstructed)
     high_res_color_image = colorize(high_res_bw_image,high_res_color_reconstructed)
+    imwrite(PATH+'HiResColorRecolored_'+HIGH_RES_IMAGE, high_res_color_image)
     t1_stop = time.perf_counter()
     t2_stop = time.process_time()
     print("Elapsed time: %.1f [sec]" % ((t1_stop-t1_start)))
     print("CPU process time: %.1f [sec]" % ((t2_stop-t2_start)))
 
     fig = plt.figure()
-    fig.add_subplot(1,2,1).set_title('REconstructed')
+    fig.add_subplot(1,2,1).set_title('Reconstructed')
     imgplot = plt.imshow(high_res_bw_image)
     fig.add_subplot(1,2,2).set_title('Colorized')
     imgplot = plt.imshow(high_res_color_image)

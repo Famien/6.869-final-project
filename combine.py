@@ -40,7 +40,7 @@ def get_high_res_colored(lr_bw, lr_colored, hr_bw, window_size):
     for i in range(int(len(hr_bw)/window_size)):
         i_start = i*window_size
         i_end = i*window_size + 2
-        for j in range(int(len(hr_bw)/window_size)):
+        for j in range(int(len(hr_bw[0])/window_size)):
             j_start = j*window_size
             j_end = j*window_size + 2
 
