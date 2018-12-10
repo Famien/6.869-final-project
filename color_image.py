@@ -25,7 +25,8 @@ def color_image(img, name):
     YELLOW = (0,255,255)
     COLOR = RED
     RADIUS = 5
-    image = cv2.imread(PATH+img)
+    print("Path: ", PATH, " img: ", img)
+    image = cv2.imread(img)
     cv2.namedWindow('image')
     cv2.setMouseCallback('image',draw_circle)
 
