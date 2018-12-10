@@ -12,15 +12,9 @@ from scipy.misc import imread
 import imageio
 np.set_printoptions(precision=8, suppress=True)
 
-# set the photo file path
-#path_pic = 'LoResBW_peppers.png'
-#path_pic_marked = 'LoResBW_peppers_marked.png'
 PATH = 'images/'
-path_pic = PATH+'LoResBW_colorized_test.png'
-path_pic_marked = PATH+'LoResMark_colorized_test.png'
-# path_pic = 'lr_peppers.png'
-# path_pic_marked = 'lr_peppers_marked.png'
-# window width
+path_pic = PATH+'HiResBW_colorized_test.png'
+path_pic_marked = PATH+'HiResMark_colorized_test.png'
 wd_width = 1
 
 pic_o_rgb = imread(path_pic)
@@ -28,15 +22,6 @@ pic_o = pic_o_rgb.astype(float)/255
 pic_m_rgb = imread(path_pic_marked)
 pic_m = pic_m_rgb.astype(float)/255
 
-
-
-# fig = plt.figure()
-# fig.add_subplot(1,2,1).set_title('Black & White')
-# imgplot = plt.imshow(pic_o_rgb)
-# fig.add_subplot(1,2,2).set_title('Color Hints')
-# imgplot = plt.imshow(pic_m_rgb)
-
-# plt.show();
 
 class WindowNeighbor:
     def __init__(self, width, center, pic):

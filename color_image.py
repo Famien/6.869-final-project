@@ -50,11 +50,11 @@ def color_image(img, name):
         elif k == ord('m'):
             RADIUS = min(RADIUS+1,100)
         elif k == 27:
-            cv2.imwrite(PATH+'LoResMark_'+name,image)
+            cv2.imwrite(PATH+'HiResMark_'+name,image)
             break
 
     cv2.destroyAllWindows()
     return image
 
 if __name__ == "__main__":
-    color_image('maplestory.jpg','maplestory.jpg')
+    color_image('HiResBW_colorized_test.png','colorized_test.png')

@@ -48,13 +48,11 @@ if __name__ == "__main__":
     imwrite(PATH+'LoResBW_'+HIGH_RES_IMAGE, low_res_bw_image)
 
     # User marks the smaller black and white image (LoResBW -> LoResMark)
-    low_res_mark_image = cv2.imread(PATH+'LoResMark_'+HIGH_RES_IMAGE)
-    # low_res_mark_image = color_image('LoResBW_'+HIGH_RES_IMAGE, HIGH_RES_IMAGE)
+    # low_res_mark_image = cv2.imread(PATH+'LoResMark_'+HIGH_RES_IMAGE)
+    low_res_mark_image = color_image('LoResBW_'+HIGH_RES_IMAGE, HIGH_RES_IMAGE)
     fig.add_subplot(2,2,4).set_title('marked low_res bw')
     imgplot = plt.imshow(imread(PATH+'LoResMark_'+HIGH_RES_IMAGE))
     plt.show();
-
-    # cv2.imshow('LoResMark', low_res_mark_image)
 
     # read in images
 
