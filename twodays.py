@@ -72,8 +72,10 @@ if __name__ == "__main__":
     
     # get colorized versino of low res
     low_res_color_image = colorize(pic_o,pic_m)
+    high_res_bw_image = high_res_bw_image.astype(float)/255
     # cv2.imshow('LoResColor', low_res_color_image)
     # get colorized version of high res
+
     high_res_color_reconstructed = get_high_res_colored4(pic_o, low_res_color_image, high_res_bw_image,2)
     high_res_color_image = colorize(high_res_bw_image,high_res_color_reconstructed)
     t1_stop = time.perf_counter()
