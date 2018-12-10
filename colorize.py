@@ -83,7 +83,7 @@ def colorize(pic_o, pic_m):
     weightData = []
     num_pixel_bw = 0
 
-
+    print("Building")
     # build the weight matrix for each window.
     for c in range(pic_cols):
         for r in range(pic_rows):
@@ -94,7 +94,7 @@ def colorize(pic_o, pic_m):
                 for e in weights:
                     weightData.append([w.center,(e[0],e[1]), e[2]])
             weightData.append([w.center, (w.center[0],w.center[1]), 1.])
-
+    print("Done")
     sp_idx_rc_data = [[to_seq(e[0][0], e[0][1], pic_rows), to_seq(e[1][0], e[1][1], pic_rows), e[2]] for e in weightData]
     sp_idx_rc = np.array(sp_idx_rc_data, dtype=np.integer)[:,0:2]
     sp_data = np.array(sp_idx_rc_data, dtype=np.float64)[:,2]
