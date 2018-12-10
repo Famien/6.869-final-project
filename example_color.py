@@ -6,6 +6,7 @@ import colorsys
 import scipy
 import scipy.sparse
 import scipy.sparse.linalg
+import time
 import logging
 from scipy.misc import imread
 import imageio
@@ -15,8 +16,8 @@ np.set_printoptions(precision=8, suppress=True)
 #path_pic = 'LoResBW_peppers.png'
 #path_pic_marked = 'LoResBW_peppers_marked.png'
 PATH = 'images/'
-path_pic = PATH + 'lr_peppers.png'
-path_pic_marked = PATH + 'lr_peppers_marked.png'
+path_pic = 'lr_peppers.png'
+path_pic_marked = 'lr_peppers_marked.png'
 # window width
 wd_width = 1
 
@@ -27,13 +28,13 @@ pic_m = pic_m_rgb.astype(float)/255
 
 
 
-fig = plt.figure()
-fig.add_subplot(1,2,1).set_title('Black & White')
-imgplot = plt.imshow(pic_o_rgb)
-fig.add_subplot(1,2,2).set_title('Color Hints')
-imgplot = plt.imshow(pic_m_rgb)
+# fig = plt.figure()
+# fig.add_subplot(1,2,1).set_title('Black & White')
+# imgplot = plt.imshow(pic_o_rgb)
+# fig.add_subplot(1,2,2).set_title('Color Hints')
+# imgplot = plt.imshow(pic_m_rgb)
 
-plt.show();
+# plt.show();
 
 class WindowNeighbor:
     def __init__(self, width, center, pic):
@@ -98,6 +99,8 @@ def init_logger():
     logging.basicConfig(format=FORMAT, level=logging.DEBUG)
     logger = logging.getLogger()
     return logger
+t1_start = time.perf_counter()
+t2_start = time.process_time()
 
 log = init_logger()
 (pic_rows, pic_cols, _) = pic_o.shape
@@ -147,13 +150,16 @@ ansV = scipy.sparse.linalg.spsolve(matA, b_v)
 pic_ans = yuv_channels_to_rgb(ansY,ansU,ansV)
 
 log.info('Optimized Ax=b')
-
-fig = plt.figure()
-fig.add_subplot(1,2,1).set_title('Black & White')
-imgplot = plt.imshow(pic_o_rgb)
-fig.add_subplot(1,2,2).set_title('Colorized')
-imgplot = plt.imshow(pic_ans)
+t1_stop = time.perf_counter()
+t2_stop = time.process_time()
+print("Elapsed time: %.1f [sec]" % ((t1_stop-t1_start)))
+print("CPU process time: %.1f [sec]" % ((t2_stop-t2_start)))
+# fig = plt.figure()
+# fig.add_subplot(1,2,1).set_title('Black & White')
+# imgplot = plt.imshow(pic_o_rgb)
+# fig.add_subplot(1,2,2).set_title('Colorized')
+# imgplot = plt.imshow(pic_ans)
 
 import numpy
 imageio.imwrite(PATH + 'colorized_test.png', numpy.array(pic_ans))
-plt.show();
+# plt.show();
