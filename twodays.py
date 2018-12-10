@@ -54,7 +54,8 @@ if __name__ == "__main__":
     # Pass the HiResBW, LoResBW, and LoResColor to get smaller marked window (HiResBW + LoResBW + LoResColor -> MarkedWindow)
 
     # Pass the marked window back into colorizer and recombine to high resolution colorized image (MarkedWindow -> HiResColorRecostructed)
-    # high_res_color_reconstructed = get_high_res_colored(
+    pic_high_res_bw = imread(PATH + 'HiResBW_'+ HIGH_RES_IMAGE)
+    high_res_color_reconstructed = get_high_res_colored(pic_o, low_res_color_image, pic_high_res_bw,2)
 
     t1_stop = time.perf_counter()
     t2_stop = time.process_time()

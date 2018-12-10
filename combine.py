@@ -36,11 +36,11 @@ def get_high_res_colored(lr_bw, lr_colored, hr_bw, window_size):
     """
     colorized_image = hr_bw[:]
 
-    for i in range(len(hr_bw)/window_size):
+    for i in range(int(len(hr_bw)/window_size)):
         i_start = i*window_size
         i_end = i*window_size + 2
 
-        for j in range(len(hr_bw[0])/window_size):
+        for j in range(int(len(hr_bw[0])/window_size)):
             j_start = j*window_size
             j_end = j*window_size + 2
             window = hr_bw[i_start:i_end,j_start:j_end]
@@ -57,23 +57,3 @@ def get_high_res_colored(lr_bw, lr_colored, hr_bw, window_size):
             color_window(colorized_image, colorized_window,i*window_size ,j*window_size)
 
     return colorized_image
-
-# set the photo file path
-path_lr = PATH+'lr_peppers.png'
-path_lr_colorized = PATH+'colorized_test.png'
-path_bw = PATH+'peppers_gray.png'
-
-pic_lr_rgb = imread(path_lr)
-pic_lr = pic_lr_rgb.astype(float)/255
-
-pic_lr_marked_rgb = imread(path_lr_colorized)
-pic_lr_colored = pic_lr_marked_rgb.astype(float)/255
-
-pic_bw_rgb = imread(path_bw)
-pic_bw = pic_bw_rgb.astype(float)/255
-
-pic_bw = pic_bw[:,:,:3]
-
-high_res_colored = get_high_res_colored(pic_lr, pic_lr_colored, pic_bw, 2)
-
-imwrite(PATH+'high_res_colored.png', high_res_colored)
